@@ -1,5 +1,5 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  
   parserOptions: {
     project: "tsconfig.json",
     tsconfigRootDir: __dirname,
@@ -139,4 +139,12 @@ module.exports = {
       },
     ],
   },
+  "overrides": [
+    {
+      "files": ["postcss.config.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 };
