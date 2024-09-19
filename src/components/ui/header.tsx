@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -9,7 +10,7 @@ export default function Header(): React.JSX.Element {
       <div className="flex w-full max-w-7xl h-full justify-between items-center mx-auto ">
         <div className="flex items-center gap-12">
           <Link href="/">
-            <img src="/icon.svg" alt="icono" />
+            <Image src="/icon.svg" alt="icono" width={165} height={50} />
           </Link>
           <nav className="gap-12 flex font-inter leading-3">
             <Link
@@ -19,7 +20,7 @@ export default function Header(): React.JSX.Element {
               Popular
             </Link>
             <Link
-              href="/movie/favorites"
+              href="/#"
               className="p-3 text-sm rounded-md hover:bg-yellow-500/40"
             >
               Favorites
@@ -28,7 +29,7 @@ export default function Header(): React.JSX.Element {
         </div>
         <div className="flex items-center">
           <button className="w-full h-full items-center flex">
-            <img src="/signinIcon.svg" alt="" />
+            <Image src="/signinIcon.svg" alt="" width={32} height={32} />
           </button>
         </div>
       </div>

@@ -32,7 +32,7 @@ export default function Home(): React.JSX.Element {
   return (
     <>
       <Suspense fallback={<CardMovieSkeleton />}>
-        <section className="grid grid-cols-4 gap-5 p-4 grid-rows-3">
+        <section className="grid grid-cols-4 items-center gap-5 grid-rows-3">
           {movies.map((movie) => (
             <CardMovie
               key={movie.id}
