@@ -7,6 +7,7 @@ const nextConfig = {
 
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    missingSuspenseWithCSRBailout: false,
   },
 };
 

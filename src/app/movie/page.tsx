@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { getMoviesSearch } from "@/lib/data";
 import CardMovie from "@/components/ui/card-movie";
 import { ApiResponse, Movie } from "@/lib/definitions";
@@ -9,7 +9,6 @@ import CardMovieSkeleton from "@/components/ui/SkeletonCard";
 
 export default function Home(): React.JSX.Element {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState<ApiResponse | undefined>(undefined);
   const searchParams = useSearchParams();
   const [noResults, setNoResults] = useState(false);
@@ -29,48 +28,40 @@ export default function Home(): React.JSX.Element {
         setNoResults(fullResponse.total_results === 0);
       } catch (error) {
         //console.error("Error fetching movies:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
     getMovies();
   }, [currentPage, queryParams]);
 
-  if (loading) {
-    return (
-      <div className="text-center text-white">
-        <CardMovieSkeleton></CardMovieSkeleton>
-      </div>
-    );
-  }
-
   return (
     <>
-      {noResults ? (
-        <div className="text-center text-white">
-          <p>No se encontraron resultados.</p>
-        </div>
-      ) : (
-        <>
-          <section className="grid grid-cols-4 gap-5 p-4 grid-rows-3">
-            {movies.map((movie) => (
-              <CardMovie
-                key={movie.id}
-                id={movie.id}
-                title={movie.title}
-                overview={movie.overview}
-                release_date={movie.release_date}
-                vote_average={movie.vote_average}
-                poster_path={movie.poster_path}
-                backdrop_path={movie.backdrop_path}
-              />
-            ))}
-          </section>
+      <Suspense fallback={<CardMovieSkeleton></CardMovieSkeleton>}>
+        {noResults ? (
+          <div className="text-center text-white">
+            <p>No se encontraron resultados.</p>
+          </div>
+        ) : (
+          <>
+            <section className="grid grid-cols-4 gap-5 p-4 grid-rows-3">
+              {movies.map((movie) => (
+                <CardMovie
+                  key={movie.id}
+                  id={movie.id}
+                  title={movie.title}
+                  overview={movie.overview}
+                  release_date={movie.release_date}
+                  vote_average={movie.vote_average}
+                  poster_path={movie.poster_path}
+                  backdrop_path={movie.backdrop_path}
+                />
+              ))}
+            </section>
 
-          <Pagination totalPages={response?.total_pages || 1} />
-        </>
-      )}
+            <Pagination totalPages={response?.total_pages || 1} />
+          </>
+        )}
+      </Suspense>
     </>
   );
 }
