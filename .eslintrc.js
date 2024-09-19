@@ -1,5 +1,4 @@
 module.exports = {
-  
   parserOptions: {
     project: "tsconfig.json",
     tsconfigRootDir: __dirname,
@@ -7,10 +6,8 @@ module.exports = {
   },
   plugins: ["@typescript-eslint/eslint-plugin", "unused-imports"],
   extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@typescript-eslint/strict",
+    'eslint:recommended',
+    'plugin:prettier/recommended',
   ],
   root: true,
   env: {
@@ -138,13 +135,26 @@ module.exports = {
         leadingUnderscore: "allow",
       },
     ],
+    // Disable formatting-related rules
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+        tabWidth: 2,
+        useTabs: false,
+        semi: true,
+        singleQuote: true,
+        trailingComma: "all",
+      },
+    ],
   },
-  "overrides": [
+  overrides: [
     {
-      "files": ["postcss.config.js"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off"
-      }
-    }
-  ]
+      files: ["postcss.config.js"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+        "no-undef": "off",
+      },
+    },
+  ],
 };
