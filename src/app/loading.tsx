@@ -1,5 +1,6 @@
-import CardMovieSkeleton from "@/components/ui/SkeletonCard"
+import CardMovieSkeleton from "@/components/ui/SkeletonCard";
+import React from "react";
 
-export default function Loading(){
-    return <CardMovieSkeleton></CardMovieSkeleton>
+export default function Loading(): React.JSX.Element {
+  return <CardMovieSkeleton></CardMovieSkeleton>;
 }

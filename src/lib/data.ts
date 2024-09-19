@@ -1,91 +1,245 @@
-import { Genre,Movie,ApiResponse } from "./definitions";
+import { Genre, Movie, ApiResponse } from "./definitions";
 
-const api_key = process.env.NEXT_PUBLIC_API_KEY
-const api_token = process.env.NEXT_PUBLIC_API_TOKEN
+const api_key = process.env.NEXT_PUBLIC_API_KEY;
+const api_token = process.env.NEXT_PUBLIC_API_TOKEN;
 export async function fecthGenres(): Promise<Genre[]> {
-	try {
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization:
-					`Bearer ${api_token}`,
-			},
-		};
-		const response = await fetch(
-			`https://api.themoviedb.org/3/genre/movie/list?language=en?api_key=${api_key}`,
-			options
-		);
-
-		// Verifica si el estado de la respuesta es 200
-		if (!response) {
-			throw new Error("Error en la respuesta fecth getGenres"); 
-		}
-		const data = await response.json();				
-		return data.genres;
-
-	} catch (error) {		
-		throw error;
-	}
-}
-export async function getMoviesPopular():Promise<Movie[]>{
-    try {
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization:
-					`Bearer ${api_token}`,
-			},
-		};
-		const response = await fetch(
-			`https://api.themoviedb.org/3/trending/movie/day?language=en-US?api_key=${api_key}?page=2`,
-			options
-		);
-
-		// Verifica si el estado de la respuesta es 200
-		if (!response) {
-			throw new Error("Error en la respuesta fecth getGenres"); 
-		}
-		const data = await response.json();				
-		return data;
-
-	} catch (error) {		
-		throw error;
-	}
-}
-
-export async function getMoviesTrending(page:string):Promise<{ fullResponse: ApiResponse; results: Movie[] }>{
   try {
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization:
-					`Bearer ${api_token}`,
-			},
-		};
-		const response = await fetch(
-			`https://api.themoviedb.org/3/trending/movie/day?language=en-US?api_key=${api_key}&page=${page}`,
-			options
-		);
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?language=en?api_key=${api_key}`,
+      options,
+    );
 
-		// Verifica si el estado de la respuesta es 200
-		if (!response) {
-			throw new Error("Error en la respuesta fecth getGenres"); 
-		}
-		const data : ApiResponse = await response.json();	
-    //console.log(data.results);			
-		return {
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data = await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return data.genres;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getMoviesTrending(
+  page: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/trending/movie/day?language=en-US?api_key=${api_key}&page=${page}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data.results);
+    return {
       fullResponse: data,
       results: data.results,
     };
-
-	} catch (error) {		
-		throw error;
-	}
+  } catch (error) {
+    throw error;
+  }
 }
+export async function getMoviesUpcoming(
+  page: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/upcoming?language=en-US&api_key=${api_key}&page=${page}`,
+      options,
+    );
 
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data.results);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getMoviesNowPlaying(
+  page: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/now_playing?language=en-US&api_key=${api_key}&page=${page}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data.results);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getMoviesTopRated(
+  page: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?language=en-US&api_key=${api_key}&page=${page}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data.results);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getMoviesPopular(
+  page: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/popular?language=en-US&api_key=${api_key}&page=${page}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data.results);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getMoviesSearch(
+  page: string,
+  query: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}&api_key=${api_key}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data.results);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getMoviesByGenre(
+  page: string,
+  genreId: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}&api_key=${api_key}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
 //https://image.tmdb.org/t/p/original//8cdWjvZQUExUUTzyp4t6EDMubfO.jpg
 /* {
   "page": 1,

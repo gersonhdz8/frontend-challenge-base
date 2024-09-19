@@ -1,21 +1,24 @@
 module.exports = {
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "tsconfig.json",
     tsconfigRootDir: __dirname,
-    ecmaVersion: 2015,
     sourceType: "module",
   },
   plugins: ["@typescript-eslint/eslint-plugin", "unused-imports"],
   extends: [
-    'eslint:recommended',
-    'plugin:prettier/recommended',
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
+    'plugin:@next/next/recommended',
   ],
   root: true,
   env: {
     node: true,
     jest: true,
   },
-  ignorePatterns: [".eslintrc.js", "global.d.ts", "jest.base.config.ts"],
+  ignorePatterns: [".eslintrc.js", "global.d.ts", "jest.base.config.ts","postcss.config.js"],
   rules: {
     "unused-imports/no-unused-imports": "error",
     "no-duplicate-imports": "error",
@@ -41,7 +44,7 @@ module.exports = {
     "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
     "@typescript-eslint/consistent-type-exports": "error",
     "@typescript-eslint/consistent-type-imports": [
-      "off",
+      "error",
       {
         prefer: "no-type-imports",
       },
@@ -136,26 +139,5 @@ module.exports = {
         leadingUnderscore: "allow",
       },
     ],
-    // Disable formatting-related rules
-    "prettier/prettier": [
-      "error",
-      {
-        endOfLine: "auto",
-        tabWidth: 2,
-        useTabs: false,
-        semi: true,
-        singleQuote: true,
-        trailingComma: "all",
-      },
-    ],
   },
-  overrides: [
-    {
-      files: ["postcss.config.js"],
-      rules: {
-        "@typescript-eslint/no-var-requires": "off",
-        "no-undef": "off",
-      },
-    },
-  ],
 };
