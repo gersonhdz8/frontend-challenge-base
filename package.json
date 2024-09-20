@@ -10,7 +10,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.4.8",
+    "@nextui-org/system": "^2.2.6",
+    "@nextui-org/theme": "^2.2.11",
     "@t3-oss/env-core": "^0.10.1",
+    "framer-motion": "^11.5.5",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "lucide-react": "^0.441.0",

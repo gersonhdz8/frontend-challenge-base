@@ -22,7 +22,7 @@ export default function CardMovie(movie: Movie): React.JSX.Element {
   };
   return (
     <div className="h-full w-full gap-5 border border-slate-300/20 rounded-lg shadow bg-neutral-800 ">
-      <a href="#" className="">
+      <a href={`/movie/details?movieId=${movie.id}`} className="">
         <Image
           className="rounded-t-lg object-cover max-h-[22rem] min-h-[22rem] w-full shadow-sm shadow-neutral-700"
           src={`${image_url}` + `${movie.poster_path}`}

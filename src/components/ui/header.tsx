@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import ModalUser from "../login/modal-user";
 
 export default function Header(): React.JSX.Element {
   return (
@@ -28,9 +29,7 @@ export default function Header(): React.JSX.Element {
           </nav>
         </div>
         <div className="flex items-center">
-          <button className="w-full h-full items-center flex">
-            <Image src="/signinIcon.svg" alt="" width={32} height={32} />
-          </button>
+          <ModalUser></ModalUser>
         </div>
       </div>
     </header>
