@@ -240,6 +240,33 @@ export async function getMoviesByGenre(
     throw error;
   }
 }
+export async function getMoviesDetails(
+  movieId: string,
+): Promise<{ results: Movie }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/$${movieId}?language=en-US&api_key=${api_key}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getGenres");
+    }
+    const data: Movie = await response.json();
+    //console.log(data);
+    return { results: data };
+  } catch (error) {
+    throw error;
+  }
+}
 //https://image.tmdb.org/t/p/original//8cdWjvZQUExUUTzyp4t6EDMubfO.jpg
 /* {
   "page": 1,

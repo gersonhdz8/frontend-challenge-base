@@ -22,7 +22,7 @@ export default function CardMovie(movie: Movie): React.JSX.Element {
   };
   return (
     <div className="h-full w-full gap-5 border border-slate-300/20 rounded-lg shadow bg-neutral-800 ">
-      <a href={`/movie/details?movieId=${movie.id}`} className="">
+      <a href={`/details?movieId=${movie.id}`} className="">
         <Image
           className="rounded-t-lg object-cover max-h-[22rem] min-h-[22rem] w-full shadow-sm shadow-neutral-700"
           src={`${image_url}` + `${movie.poster_path}`}
@@ -32,7 +32,10 @@ export default function CardMovie(movie: Movie): React.JSX.Element {
         />
       </a>
       <div className="p-4 flex flex-col">
-        <a href="#" className="flex items-center justify-start text-clip">
+        <a
+          href={`/details?movieId=${movie.id}`}
+          className="flex items-center justify-start text-clip"
+        >
           <h5 className="text-xl font-semibold tracking-tight text-white min-h-14 max-h-14 text-wrap overflow-hidden ">
             {movie.title}
           </h5>
