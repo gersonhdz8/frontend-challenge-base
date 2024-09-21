@@ -1,4 +1,4 @@
-import { Genre, Movie, ApiResponse } from "./definitions";
+import { Genre, Movie, ApiResponse, MovieDetails } from "./definitions";
 
 const api_key = process.env.NEXT_PUBLIC_API_KEY;
 const api_token = process.env.NEXT_PUBLIC_API_TOKEN;
@@ -46,7 +46,7 @@ export async function getMoviesTrending(
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesTrending");
     }
     const data: ApiResponse = await response.json();
     //console.log(data.results);
@@ -76,7 +76,7 @@ export async function getMoviesUpcoming(
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesUpComing");
     }
     const data: ApiResponse = await response.json();
     //console.log(data.results);
@@ -106,7 +106,7 @@ export async function getMoviesNowPlaying(
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesNowPlaying");
     }
     const data: ApiResponse = await response.json();
     //console.log(data.results);
@@ -136,7 +136,7 @@ export async function getMoviesTopRated(
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesTopRated");
     }
     const data: ApiResponse = await response.json();
     //console.log(data.results);
@@ -166,7 +166,7 @@ export async function getMoviesPopular(
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesPopular");
     }
     const data: ApiResponse = await response.json();
     //console.log(data.results);
@@ -197,7 +197,7 @@ export async function getMoviesSearch(
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesSearch");
     }
     const data: ApiResponse = await response.json();
     //console.log(data.results);
@@ -242,7 +242,7 @@ export async function getMoviesByGenre(
 }
 export async function getMoviesDetails(
   movieId: string,
-): Promise<{ results: Movie }> {
+): Promise<{ results: MovieDetails }> {
   try {
     const options = {
       method: "GET",
@@ -252,17 +252,47 @@ export async function getMoviesDetails(
       },
     };
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/$${movieId}?language=en-US&api_key=${api_key}`,
+      `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=${api_key}`,
       options,
     );
 
     // Verifica si el estado de la respuesta es 200
     if (!response) {
-      throw new Error("Error en la respuesta fecth getGenres");
+      throw new Error("Error en la respuesta fecth MoviesDetails");
     }
-    const data: Movie = await response.json();
+    const data: MovieDetails = await response.json();
     //console.log(data);
     return { results: data };
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getMoviesRecomendation(
+  movieId: string,
+): Promise<{ fullResponse: ApiResponse; results: Movie[] }> {
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${api_token}`,
+      },
+    };
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${movieId}/recommendations?language=en-US&page=1&api_key=${api_key}`,
+      options,
+    );
+
+    // Verifica si el estado de la respuesta es 200
+    if (!response) {
+      throw new Error("Error en la respuesta fecth getMovieRecommendations");
+    }
+    const data: ApiResponse = await response.json();
+    //console.log(data);
+    return {
+      fullResponse: data,
+      results: data.results,
+    };
   } catch (error) {
     throw error;
   }

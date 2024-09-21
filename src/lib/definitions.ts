@@ -17,3 +17,7 @@ export interface ApiResponse {
   total_pages: number;
   total_results: number;
 }
+export interface MovieDetails extends Movie {
+  genres: Genre[];
+  runtime: number;
+}

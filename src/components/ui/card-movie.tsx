@@ -1,4 +1,5 @@
 import { Movie } from "@/lib/definitions";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 
 import { useState } from "react";
@@ -51,15 +52,14 @@ export default function CardMovie(movie: Movie): React.JSX.Element {
             {movie.release_date}
           </span>
           <button
+            className="p-2 bg-neutral-500 hover:bg-neutral-900 rounded-full"
             onClick={toggleFavorite}
-            className="text-white bg-yellow-500/70 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-normal rounded-lg text-sm p-2 text-center"
           >
-            <Image
-              src={isFavorite ? "/iconHeartFilled.svg" : "/iconHeart.svg"}
-              alt="favorite"
-              width={24}
-              height={244}
-            />
+            {isFavorite ? (
+              <Heart color="white" fill="#E54545" size={22} />
+            ) : (
+              <Heart color="white" size={22} />
+            )}
           </button>
         </div>
       </div>
