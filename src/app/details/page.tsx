@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 "use client";
 import { useEffect, useState, Suspense } from "react";
-import { ArrowLeft, Heart } from "lucide-react";
+import { ArrowLeft, Heart, Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { MovieDetails, Movie } from "@/lib/definitions";
 import { getMoviesDetails, getMoviesRecomendation } from "@/lib/data";
+import { MovieDetailsSkeleton } from "../../components/ui/skeletonDetails";
 
 export default function MovieDetailsPage(): React.JSX.Element {
   const [movie, setMovies] = useState<MovieDetails>();
@@ -42,11 +43,15 @@ export default function MovieDetailsPage(): React.JSX.Element {
   };
 
   if (!movie) {
-    return <div>Cargando...</div>;
+    return (
+      <div>
+        <MovieDetailsSkeleton></MovieDetailsSkeleton>
+      </div>
+    );
   }
 
   return (
-    <Suspense fallback="">
+    <Suspense fallback={<MovieDetailsSkeleton></MovieDetailsSkeleton>}>
       <div className="min-h-screen md:min-h-screen  w-full h-full bg-neutral-900 text-white">
         <div className="relative md:h-[100vh] 2xl:h-[80vh] bg-neutral-900">
           <Image
@@ -67,13 +72,19 @@ export default function MovieDetailsPage(): React.JSX.Element {
 
         <div className="px-4 py-8 absolute ml-16 top-1/2 max-w-7xl">
           <div className="flex items-start gap-8 ">
-            <Image
-              src={`${image_url}` + `${movie.poster_path}`}
-              alt={movie.title}
-              width={200}
-              height={300}
-              className="rounded-lg shadow-lg"
-            />
+            <div className="flex gap-5 flex-col">
+              <Image
+                src={`${image_url}` + `${movie.poster_path}`}
+                alt={movie.title}
+                width={200}
+                height={300}
+                className="rounded-lg shadow-lg"
+              />
+              <button className="rounded-lg bg-yellow-500/80 text-black font-semibold w-full h-10 inline-flex items-center gap-5 justify-center">
+                Ver trailer <Play size={20}></Play>
+              </button>
+            </div>
+
             <div className="flex-1">
               <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
               <p className="text-gray-400 mb-4">
